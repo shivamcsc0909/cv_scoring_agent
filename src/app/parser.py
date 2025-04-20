@@ -1,5 +1,31 @@
 import os
 import re
+from PyPDF2 import PdfReader
+import docx
+
+def extract_text_from_pdf(path):
+    reader = PdfReader(path)
+    return "\n".join(p.extract_text() or "" for p in reader.pages)
+
+
+def extract_text_from_docx(path):
+    doc = docx.Document(path)
+    return "\n".join(p.text for p in doc.paragraphs)
+
+
+def extract_experience_years(text):
+    years = re.findall(r"(\d+)[+]?[ ]?(?:year|yr)", text, re.IGNORECASE)
+    return max(map(int, years)) if years else 0
+
+
+def parse_resume(file_path):
+    if not os.path.exists(file_path):
+        return None, "File not found"
+    text = extract_text_from_pdf(file_path) if file_path.endswith('.pdf') else extract_text_from_docx(file_path)
+    years = extract_experience_years(text)
+    return {"text": text, "years_experience": years}, None
+import os
+import re
 import docx
 import PyPDF2
 from PyPDF2 import PdfReader
