@@ -8,8 +8,25 @@ from app.scorer import score_resume_with_job_description, log_resume_score
 
 # Load environment variables
 load_dotenv()
+
+# Set OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+# Other environment variables
+EMAIL = os.getenv('EMAIL')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_USER = os.getenv('EMAIL_USER')
+EMAIL_PASS = os.getenv('EMAIL_PASS')
+EMAIL_SENDER = os.getenv('EMAIL_SENDER')
+
+SMTP_SERVER = os.getenv('SMTP_SERVER')
+SMTP_PORT = os.getenv('SMTP_PORT')
+IMAP_SERVER = os.getenv('IMAP_SERVER')
+IMAP_PORT = os.getenv('IMAP_PORT')
+
+RESUME_FOLDER = os.getenv('RESUME_FOLDER')
+
+# Streamlit page config
 st.set_page_config(page_title="CV Scoring AI", layout="wide")
 st.title("📄 CV Scoring AI")
 st.write("Upload your resume and optionally paste a job description.")
